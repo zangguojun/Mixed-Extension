@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Avatar, Card, Space, Checkbox, Button } from 'antd'
 import axios from 'axios'
 import qs from 'qs'
+
 import {
   LeftCircleOutlined,
   RightCircleOutlined
 } from '@ant-design/icons';
 
-import './Options.scss'
+
 import 'antd/dist/antd.css'
 
 interface Props {
@@ -106,21 +107,21 @@ const Options: React.FC<Props> = () => {
     //     console.error(error)
     //   })
 
-    fetch('http://api.bilibili.com/x/relation/tag/create', {
-      method: 'post',
-      body: qs.stringify({
+    axios
+      .post('http://api.bilibili.com/x/relation/tag/create', qs.stringify({
         tag: '健身',
         csrf: csrfToken
-      }),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Referer': 'https://www.bilibili.com',
-        'Origin': 'https://www.bilibili.com',
-        // cookie: 'SESSDATA=fed53d03%2C1655301075%2C59476%2Ac1'
-      }
-    })
+      }), {
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          'Referer': 'https://www.bilibili.com',
+          'origin': 'https://www.bilibili.com'
+        }
+      })
       .then((res) => {
-        console.log('🚀 ~ file: Options.tsx ~ line 132 ~ .then ~ res)', res)
+        const rst = res?.data?.data
+        setFollowing(rst.list[0])
+        return rst.list[0]
       })
       .catch((error) => {
         console.log('🚀 ~ file: Options.tsx ~ line 95 ~ editRelationTags ~ csrfToken', csrfToken)

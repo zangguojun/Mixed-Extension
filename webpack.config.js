@@ -43,9 +43,6 @@ var options = {
     devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
     panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
   },
-  chromeExtensionBoilerplate: {
-    notHotReload: ['contentScript', 'devtools'],
-  },
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].bundle.js',
@@ -184,6 +181,9 @@ var options = {
   ],
   infrastructureLogging: {
     level: 'info',
+  },
+  chromeExtensionBoilerplate: {
+    notHotReload: ['contentScript', 'devtools'],
   },
 };
 
